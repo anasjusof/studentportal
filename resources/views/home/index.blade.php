@@ -24,13 +24,13 @@
 		<div class="col-md-4 text-center"><a href="/login" class="btn btn-primary" style="min-width: 150px">Lecturer</a></div>
 		<div class="col-md-4 text-center"><a href="/login" class="btn btn-primary" style="min-width: 150px">Parent</a></div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-6 text-center">
 		<p>For enquiries, suggestions or comments, please contact us via i-Recommend.</p>
 		<p>If you experience difficulties viewing the website, please contact webmaster@uniten.edu.my</p>
 		<p>Copyright © 2016 Universiti Tenaga Nasional. All rights reserved. </p>
 		<p>Disclaimer and Personal Data Protection Policy</p>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-6 text-center">
 		<p><b>UNITEN, Putrajaya Campus</b></p>
 		<p>Jalan Ikram-Uniten, 43000 Kajang, Selangor, Malaysia</p>
 		<br>
