@@ -12,7 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('home.index');
+    #return view('home.index');
+    
+        if(Auth::check()){
+            if(Auth::user()->getRolesId() == 1){                // If roles id == 2, redirect to /dekan            
+	      return redirect('admin');
+	    }
+	    if(Auth::user()->getRolesId() == 2){                // If roles id == 2, redirect to /dekan            
+	      return redirect('lecturer');
+	    }
+	}
+	else{
+		return view('home.index');
+	}
 });
 
 Route::auth();
@@ -20,3 +32,6 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::get('homepage', ['uses'=>'HomePageController@index'])->name('homepage.index');
+
+Route::get('admin', ['uses'=>'AdminController@index'])->name('admin.index');
+Route::get('lecturer', ['uses'=>'LecturerController@index'])->name('lecturer.index');

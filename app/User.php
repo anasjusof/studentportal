@@ -23,4 +23,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function getRolesId(){
+        return $this->roles;
+        #1 for admin
+        #2 for lecturer
+        #3 for parent
+    }
 }
