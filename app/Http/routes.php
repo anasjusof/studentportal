@@ -55,4 +55,17 @@ Route::post('admin-user-create', ['uses'=>'AdminController@createUser'])->name('
 Route::patch('admin-user-update', ['uses'=>'AdminController@updateUser'])->name('admin.updateUser');
 Route::delete('admin-user-delete', ['uses'=>'AdminController@deleteUser'])->name('admin.deleteUser');
 
+Route::get('admin-lecturer-subject/{id}', ['uses'=>'AdminController@showLecturerSubject'])->name('admin.showLecturerSubject');
+Route::post('admin-lecturer-subject-create', ['uses'=>'AdminController@createLecturerSubject'])->name('admin.createLecturerSubject');
+Route::delete('admin-lecturer-subject-delete', ['uses'=>'AdminController@deleteLecturerSubject'])->name('admin.deleteLecturerSubject');
+
+Route::get('admin-student', ['uses'=>'AdminController@showStudent'])->name('admin.showStudent');
+Route::post('admin-student-create', ['uses'=>'AdminController@createStudent'])->name('admin.createStudent');
+Route::patch('admin-student-update', ['uses'=>'AdminController@updateStudent'])->name('admin.updateStudent');
+Route::delete('admin-student-delete', ['uses'=>'AdminController@deleteStudent'])->name('admin.deleteStudent');
+
+Route::get('admin-student-subject/{id}', ['uses'=>'AdminController@showStudentSubject'])->name('admin.showStudentSubject');
+Route::post('admin-student-subject-create', ['uses'=>'AdminController@createStudentSubject'])->name('admin.createStudentSubject');
+Route::delete('admin-student-subject-delete', ['uses'=>'AdminController@deleteStudentSubject'])->name('admin.deleteStudentSubject');
+
 Route::get('lecturer', ['uses'=>'LecturerController@index'])->name('lecturer.index');

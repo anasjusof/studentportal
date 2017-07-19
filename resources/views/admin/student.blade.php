@@ -5,7 +5,7 @@
 @stop
 
 @section('title')
-   List of User
+   List of Student
 @stop
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <i class="fa fa-angle-right"></i>
     </li>
     <li>
-        <a href="#">List of User</a>
+        <a href="#">List of Student</a>
     </li>
 @stop
 
@@ -31,7 +31,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-calendar font-white" style="color:white;"></i>
-                    <span class="caption-subject font-white sbold uppercase">List of User</span>
+                    <span class="caption-subject font-white sbold uppercase">List of Student</span>
                 </div>
             </div>
                 
@@ -43,34 +43,32 @@
                                     <th> <input id="checkall-checkbox" type="checkbox"> </th>
                                 <th> # </th>
                                 <th> Name </th>
-                                <th> Email </th>
+                                <th> Semester </th>
                                 <th> Department </th>
-                                <th> Role </th>
+                                <th> Course </th>
                                 <th>  </th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
                             <?php $count = 1; ?>
-                            @foreach($users as $user)
-                            <?php $currentPageTotalNumber = ( $users->currentPage() - 1) * 5; ?>
+                            @foreach($students as $student)
+                            <?php $currentPageTotalNumber = ( $students->currentPage() - 1) * 5; ?>
                             <tr>
-                                    <td> <input class="single-checkbox" type="checkbox" name="user_id[]" form="form_delete" value="{{ $user->id }}"> </td>
+                                    <td> <input class="single-checkbox" type="checkbox" name="student_id[]" form="form_delete" value="{{ $student->id }}"> </td>
                                 <td> {{ $count + $currentPageTotalNumber}} </td>
-                                <td> {{ $user->name }}</td>
-                                <td> {{ $user->email }}</td>
-                                <td> {{ $user->department }}</td>
-                                <td> <?php if($user->roles == 1){ echo 'Admin'; } else { echo "Lecturer"; } ?></td>
+                                <td> {{ $student->student_name }}</td>
+                                <td> {{ $student->student_sem }}</td>
+                                <td> {{ $student->student_department }}</td>
+                                <td> {{ $student->student_course }}</td>
                                 <td> <a href="" class="btn blue editBtn" data-toggle="modal" data-target="#editModal" 
-                                            data-id="{{ $user->id }}" 
-                                            data-name="{{ $user->name }}" 
-                                            data-email="{{ $user->email }}"  
-                                            data-department="{{ $user->department }}" 
-                                            data-roles="{{ $user->roles }}"
+                                            data-id="{{ $student->id }}" 
+                                            data-name="{{ $student->student_name }}" 
+                                            data-sem="{{ $student->student_sem }}"  
+                                            data-department="{{ $student->student_department }}" 
+                                            data-course="{{ $student->student_course }}"
                                             >Edit
                                         </a>
-                                        @if($user->roles == 2)
-                                        <a href="admin-lecturer-subject/{{ $user->id }}" class="btn" style="background-color: #d64635; color:white;"> + Subject </a>
-                                        @endif
+                                        <a href="admin-student-subject/{{ $student->id }}" class="btn" style="background-color: #d64635; color:white;"> + Subject </a>
                                     </td>
                             </tr>
                             <?php $count++ ?>
@@ -81,13 +79,13 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminController@deleteUser'], 'id'=>'form_delete']) !!}
+                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminController@deleteStudent'], 'id'=>'form_delete']) !!}
                             <button type="submit" class="btn btn-sm btn-danger deleteBtn">Delete</button>
                         {!! Form::close() !!}
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
-                            {{ $users->render() }}
+                            {{ $students->render() }}
                         </div>
                     </div>
                 </div>
@@ -108,35 +106,42 @@
       </div>
       <div class="modal-body">
         <div class="row">
-        {!! Form::open(['method'=>'PATCH', 'action'=>'AdminController@updateUser']) !!}
+        {!! Form::open(['method'=>'PATCH', 'action'=>'AdminController@updateStudent']) !!}
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Name</label>
                 <div class="col-md-8">
-                        <input type="text" name="name" class="form-control input-line" id="m_name">
+                        <input type="text" name="student_name" class="form-control input-line" id="m_name">
                 </div>
             </div>
             <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Email</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Semester</label>
                 <div class="col-md-8">
-                        <input type="text" name="email" class="form-control input-line" id="m_email" >
+                        <input type="text" name="student_sem" class="form-control input-line" id="m_sem" >
                 </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Department</label>
                 <div class="col-md-8">
-                        <input type="text" name="department" class="form-control input-line" id="m_department" >
+                        <select name="student_department" class="form-control input-line" id="m_department" >
+                            <option value=""></option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
                 <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Role</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Course</label>
                 <div class="col-md-8">
-                        <select name="roles" class="form-control input-line" id="m_roles_id" >
-                                <option value="1">Admin</option>
-                                <option value="2">Lecturer</option>
-                            </select>
+                        <select name="student_course" class="form-control input-line" id="m_course" >
+                            <option value=""></option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
-            <input type="hidden" name="id" id="m_user_id">
+            <input type="hidden" name="id" id="m_student_id">
         </div>
       </div>
       <div class="modal-footer">
@@ -156,49 +161,43 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">User Info</h4>
+        <h4 class="modal-title">Student Info</h4>
       </div>
       <div class="modal-body">
         <div class="row">
-        {!! Form::open(['method'=>'POST', 'action'=>'AdminController@createUser']) !!}
+        {!! Form::open(['method'=>'POST', 'action'=>'AdminController@createStudent']) !!}
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Name</label>
                 <div class="col-md-8">
-                        <input type="text" name="name" class="form-control input-line" id="" value="{{ old('name') }}">
+                        <input type="text" name="student_name" class="form-control input-line" id="" value="{{ old('student_name') }}">
                 </div>
             </div>
         <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Email</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Semester</label>
                 <div class="col-md-8">
-                        <input type="text" name="email" class="form-control input-line" id="" value="{{ old('email') }}">
+                        <input type="text" name="student_sem" class="form-control input-line" id="" value="{{ old('student_sem') }}">
                 </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Department</label>
                 <div class="col-md-8">
-                        <input type="text" name="fakulti" class="form-control input-line" id="" value="{{ old('fakulti') }}">
+                    <select name="student_department" class="form-control input-line">
+                        <option value=""></option>
+                        @foreach($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
                 <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Role</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Course</label>
                 <div class="col-md-8">
-                        <select name="roles" class="form-control input-line" id="" >
-                                <option value="0"></option>
-                                <option value="1">Admin</option>
-                                <option value="2">Lecturer</option>
-                            </select>
-                </div>
-            </div>
-                <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Password</label>
-                <div class="col-md-8">
-                        <input type="password" name="password" class="form-control input-line" id="" >
-                </div>
-            </div>
-                <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Confirm Password</label>
-                <div class="col-md-8">
-                        <input type="password" name="password_confirmation" class="form-control input-line" id="" >
+                        <select name="student_course" class="form-control input-line" id="" >
+                            <option value=""></option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
         </div>
@@ -228,31 +227,38 @@
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Name</label>
                 <div class="col-md-8">
-                        <input type="text" name="name" class="form-control input-line" id="m_name">
+                        <input type="text" name="student_name" class="form-control input-line" id="m_name">
                 </div>
             </div>
             <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Email</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Semester</label>
                 <div class="col-md-8">
-                        <input type="text" name="email" class="form-control input-line" id="m_email" >
+                        <input type="text" name="student_sem" class="form-control input-line" id="m_sem" >
                 </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Department</label>
                 <div class="col-md-8">
-                        <input type="text" name="department" class="form-control input-line" id="m_department" >
+                    <select name="student_department" class="form-control input-line">
+                        <option value=""></option>
+                        @foreach($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group col-md-12">
-                <label for="inputPassword1" class="col-md-4 control-label">Role</label>
+                <label for="inputPassword1" class="col-md-4 control-label">Course</label>
                 <div class="col-md-8">
-                        <select name="roles" class="form-control input-line" id="m_roles_id" >
-                                <option value="1">Admin</option>
-                                <option value="2">Lecturer</option>
-                            </select>
+                    <select name="student_course" class="form-control input-line" id="m_course" >
+                        <option value=""></option>
+                        @foreach($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-            <input type="hidden" name="id" id="m_user_id">
+            <input type="hidden" name="id" id="m_student_id">
         </div>
       </div>
       <div class="modal-footer">
@@ -288,11 +294,11 @@
        });
 
        $('.editBtn').click(function(){
-            $("#m_user_id").val($(this).data('id'));
+            $("#m_student_id").val($(this).data('id'));
             $("#m_name").val($(this).data('name'));
-            $("#m_email").val($(this).data('email'));
+            $("#m_sem").val($(this).data('sem'));
             $("#m_department").val($(this).data('department'));
-            $("#m_roles").val($(this).data('roles'));
+            $("#m_course").val($(this).data('course'));
        });
 
     });

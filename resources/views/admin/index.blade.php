@@ -78,12 +78,12 @@
                     <div class="details">
                         <div class="desc"> Manage </div>
                         <div class="number padding-top-0">
-                            <span data-counter="counterup" data-value="89"></span>Lecturer</div>
+                            <span data-counter="counterup" data-value="89"></span>Admin/Lecturer</div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2 yellow" href="#">
+                <a class="dashboard-stat dashboard-stat-v2 yellow" href="{{ route('admin.showStudent') }}">
                     <div class="visual">
                         <i class="fa fa-globe"></i>
                     </div>

@@ -201,7 +201,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							Lecturer Management</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="{{ route('admin.showStudent') }}">
 							<i class="fa fa-institution"></i>
 							Student Management</a>
 						</li>
