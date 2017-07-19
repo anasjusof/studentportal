@@ -18,7 +18,7 @@
 				  cancelButtonColor: '#d33',
 				  confirmButtonText: 'Delete'
 				}).then(function () {
-					$("#form_update_status").trigger('submit');
+					$("#form_delete").trigger('submit');
 				}).catch(swal.noop);
 
 			}

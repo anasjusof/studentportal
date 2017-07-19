@@ -75,6 +75,12 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- Custom CSS -->
 <link rel="stylesheet" href="../assets/custom-css.css">
 
+<style type="text/css">
+	.color-yellow{
+		color: yellow !important;
+	}
+</style>
+
 @yield('head')
 </head>
 <!-- END HEAD -->
@@ -97,7 +103,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="/">
-			<i class="icon-home" style="margin-top: 15px; font-size: 20px;"></i>
+			<i class="icon-home color-yellow" style="margin-top: 15px; font-size: 20px;"></i>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
 			</div>
@@ -162,7 +168,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				<li class="sidebar-search-wrapper" style="margin-bottom: 15px">
 
 				</li>
-				@if(Auth::user()->roles_id == 1)
+				@if(Auth::user()->roles == 1)
 				<li>
 					<a href="javascript:;">
 					<i class="icon-home"></i>
@@ -175,14 +181,29 @@ License: You must have a valid license purchased only from themeforest(the above
 							Dashboard</a>
 						</li>
 						<li>
-							<a href="{{ route('admin.manage-user') }}">
+							<a href="{{ route('admin.department') }}">
 							<i class="fa fa-user"></i>
-							Users Management</a>
+							Department Management</a>
 						</li>
 						<li>
-							<a href="{{ route('admin.manage-faculty') }}">
+							<a href="{{ route('admin.showCourse') }}">
 							<i class="fa fa-institution"></i>
-							Faculties Management</a>
+							Course Management</a>
+						</li>
+						<li>
+							<a href="{{ route('admin.showSubject') }}">
+							<i class="fa fa-institution"></i>
+							Subject Management</a>
+						</li>
+						<li>
+							<a href="{{ route('admin.showUser') }}">
+							<i class="fa fa-institution"></i>
+							Lecturer Management</a>
+						</li>
+						<li>
+							<a href="">
+							<i class="fa fa-institution"></i>
+							Student Management</a>
 						</li>
 					</ul>
 				</li>
