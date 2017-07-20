@@ -133,8 +133,11 @@ class AdminController extends Controller
 
     #User
     public function showUser(){
-        $users = User::orderBy('id', 'DESC')->paginate(5);
-        return view('admin.user', compact('users'));
+        $users = User::select('users.*', 'departments.department_name')
+                        ->leftJoin('departments', 'users.department', '=', 'departments.id')
+                        ->orderBy('id', 'DESC')->paginate(5);
+        $departments = Department::all();
+        return view('admin.user', compact('users','departments'));
     }
     
     public function createUser(Request $request){

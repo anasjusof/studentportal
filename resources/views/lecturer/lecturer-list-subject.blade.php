@@ -51,7 +51,6 @@
                                 <td> {{ $subject->subject_name }}</td>
                                 <td> 
                                     <a href="lecturer-list-assessment/{{ $subject->subject_id }}" class="btn" style="background-color: #d64635; color:white;"> Manage Assessment</a>
-                                    <a href="lecturer-list-student/{{ $subject->subject_id }}" class="btn" style="background-color: #d64635; color:white;"> View Student</a>
                                 </td>
                             </tr>
                             <?php $count++ ?>

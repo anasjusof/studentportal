@@ -58,7 +58,7 @@
                                 <td> {{ $count + $currentPageTotalNumber}} </td>
                                 <td> {{ $user->name }}</td>
                                 <td> {{ $user->email }}</td>
-                                <td> {{ $user->department }}</td>
+                                <td> {{ $user->department_name }}</td>
                                 <td> <?php if($user->roles == 1){ echo 'Admin'; } else { echo "Lecturer"; } ?></td>
                                 <td> <a href="" class="btn blue editBtn" data-toggle="modal" data-target="#editModal" 
                                             data-id="{{ $user->id }}" 
@@ -124,7 +124,13 @@
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Department</label>
                 <div class="col-md-8">
-                        <input type="text" name="department" class="form-control input-line" id="m_department" >
+                        
+                        <select name="department" class="form-control input-line" id="m_department" >
+                            <option value=""></option>
+                            @foreach($departments as $department)
+                            <option value="{{$department->id }}">{{$department->department_name}}</option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
                 <div class="form-group col-md-12">
@@ -176,7 +182,12 @@
             <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Department</label>
                 <div class="col-md-8">
-                        <input type="text" name="fakulti" class="form-control input-line" id="" value="{{ old('fakulti') }}">
+                        <select name="department" class="form-control input-line" id="m_department" >
+                            <option value=""></option>
+                            @foreach($departments as $department)
+                            <option value="{{$department->id }}">{{$department->department_name}}</option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
                 <div class="form-group col-md-12">

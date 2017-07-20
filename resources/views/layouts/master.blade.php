@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <style type="text/css">
 	.color-yellow{
-		color: yellow !important;
+		color: #888888 !important;
 	}
 
 	.portlet-style{
@@ -197,17 +197,17 @@ License: You must have a valid license purchased only from themeforest(the above
 						</li>
 						<li>
 							<a href="{{ route('admin.showSubject') }}">
-							<i class="fa fa-institution"></i>
+							<i class="fa fa-bookmark"></i>
 							Subject Management</a>
 						</li>
 						<li>
 							<a href="{{ route('admin.showUser') }}">
-							<i class="fa fa-institution"></i>
+							<i class="fa fa-female"></i>
 							Lecturer Management</a>
 						</li>
 						<li>
 							<a href="{{ route('admin.showStudent') }}">
-							<i class="fa fa-institution"></i>
+							<i class="fa fa-male"></i>
 							Student Management</a>
 						</li>
 					</ul>
