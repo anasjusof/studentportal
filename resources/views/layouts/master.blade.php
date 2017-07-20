@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
 <?php date_default_timezone_set("Asia/Kuala_Lumpur"); ?>
 <meta charset="utf-8"/>
-<title>SPKK</title>
+<title>Student Portal</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="" name="description"/>
@@ -78,6 +78,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <style type="text/css">
 	.color-yellow{
 		color: yellow !important;
+	}
+
+	.portlet-style{
+		border: 1px solid #555555;
+		background-color: #555555;
 	}
 </style>
 
@@ -209,11 +214,11 @@ License: You must have a valid license purchased only from themeforest(the above
 				</li>
 
 				@endif
-				@if(Auth::user()->roles_id == 2)
+				@if(Auth::user()->roles == 2)
 				<li>
-					<a href="{{ route('lecturer.index') }}" class="li-hover">
+					<a href="{{ route('lecturer.lecturer-list-subject') }}" class="li-hover">
 					<i class="fa fa-calendar hover-icon"></i>
-					<span class="title">Histori Permohonan Perlepasan</span>
+					<span class="title">Subject Management</span>
 					</a>
 					<!--
 					<ul class="sub-menu">

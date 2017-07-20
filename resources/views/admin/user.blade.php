@@ -27,7 +27,7 @@
         </div>
     <div class="col-md-12">
         <!-- BEGIN BORDERED TABLE PORTLET-->
-        <div class="portlet box"  style="background-color: #d64635;">
+        <div class="portlet box portlet-style">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-calendar font-white" style="color:white;"></i>

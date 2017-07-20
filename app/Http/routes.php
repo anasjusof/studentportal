@@ -68,4 +68,16 @@ Route::get('admin-student-subject/{id}', ['uses'=>'AdminController@showStudentSu
 Route::post('admin-student-subject-create', ['uses'=>'AdminController@createStudentSubject'])->name('admin.createStudentSubject');
 Route::delete('admin-student-subject-delete', ['uses'=>'AdminController@deleteStudentSubject'])->name('admin.deleteStudentSubject');
 
+
+#Lecturer
 Route::get('lecturer', ['uses'=>'LecturerController@index'])->name('lecturer.index');
+
+Route::get('lecturer-list-subject', ['uses'=>'LecturerController@showLecturerListSubject'])->name('lecturer.lecturer-list-subject');
+
+Route::get('lecturer-list-assessment/{id}', ['uses'=>'LecturerController@showAssessment'])->name('lecturer.showAssessment');
+Route::post('lecturer-assessment-create', ['uses'=>'LecturerController@createAssessment'])->name('lecturer.createAssessment');
+Route::patch('lecturer-assessment-update', ['uses'=>'LecturerController@updateAssessment'])->name('lecturer.updateAssessment');
+Route::delete('lecturer-assessment-delete', ['uses'=>'LecturerController@deleteAssessment'])->name('lecturer.deleteAssessment');
+
+Route::get('lecturer-assessment-mark/{id}', ['uses'=>'LecturerController@showStudentMarks'])->name('lecturer.showStudentMarks');
+Route::post('lecturer-assessment-mark-process', ['uses'=>'LecturerController@processStudentMarks'])->name('lecturer.processStudentMarks');

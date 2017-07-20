@@ -253,6 +253,7 @@ class AdminController extends Controller
         $subject_lists = Subject::all();
         $subjects = StudentSubject::select('subjects.subject_name', 'student_subjects.id')
                                     ->join('subjects', 'subjects.id', '=', 'student_subjects.subject_id')
+                                    ->where('student_subjects.student_id', $user_id)
                                     ->paginate(5);
         
         $student = Student::select('students.id', 'students.student_name', 'students.student_sem', 'courses.course_name as student_course', 'departments.department_name as student_department')
@@ -281,4 +282,5 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
 }

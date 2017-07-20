@@ -5,7 +5,7 @@
 @stop
 
 @section('title')
-   Course
+   Assessment
 @stop
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <i class="fa fa-angle-right"></i>
     </li>
     <li>
-        <a href="#">Course List</a>
+        <a href="#">Assessment List</a>
     </li>
 @stop
 
@@ -31,7 +31,7 @@
 	        <div class="portlet-title">
 	            <div class="caption">
 	                <i class="icon-calendar font-white" style="color:white;"></i>
-	                <span class="caption-subject font-white sbold uppercase">Course List</span>
+	                <span class="caption-subject font-white sbold uppercase">Assessment List</span>
 	            </div>
 	        </div>
                 
@@ -42,27 +42,31 @@
 	                        <tr class="uppercase">
                                     <th> <input id="checkall-checkbox" type="checkbox"> </th>
 	                            <th> # </th>
-	                            <th> Course Name </th>
+	                            <th> Assessment Name </th>
                                 <th> Created At </th>
                                 <th>  </th>
 	                        </tr>
 	                    </thead>
 	                    <tbody id="tbody">
                             <?php $count = 1; ?>
-	                        @foreach($courses as $course)
-	                        <?php $currentPageTotalNumber = ( $courses->currentPage() - 1) * 5; ?>
+	                        @foreach($assessments as $assessment)
+	                        <?php $currentPageTotalNumber = ( $assessments->currentPage() - 1) * 5; ?>
 	                        <tr>
-                                <td> <input class="single-checkbox" type="checkbox" name="course_id[]" form="form_delete" value="{{ $course->id }}"> </td>
+                                <td> <input class="single-checkbox" type="checkbox" name="assessment_id[]" form="form_delete" value="{{ $assessment->id }}"> </td>
 	                            <td> {{ $count + $currentPageTotalNumber}} </td>
-	                            <td> {{ $course->course_name }}</td>
-	                            <td> {{ $course->created_at }}</td>
-	                            <td> <a href="" class="btn blue editBtn" data-toggle="modal" data-target="#editModal" 
-                                            data-id="{{ $course->id }}" 
-                                            data-name="{{ $course->course_name }}" 
-                                            data-created_at="{{ $course->created_at }}"
-                                            >Edit
-                                        </a>
-                                    </td>
+	                            <td> {{ $assessment->assessment_name }}</td>
+	                            <td> {{ $assessment->created_at }}</td>
+	                            <td> 
+                                <a href="" class="btn blue editBtn" data-toggle="modal" data-target="#editModal" 
+                                    data-id="{{ $assessment->id }}" 
+                                    data-name="{{ $assessment->assessment_name }}" 
+                                    data-created_at="{{ $assessment->created_at }}"
+                                    >Edit
+                                </a>
+                                <a href="{{ url('lecturer-assessment-mark/'.$assessment->id) }}" class="btn purple">
+                                  Manage Student Mark
+                                </a>
+                              </td>
 	                        </tr>
 	                        <?php $count++ ?>
 	                        @endforeach
@@ -72,13 +76,13 @@
 
 	            <div class="row">
 		        	<div class="col-md-6">
-		        		{!! Form::open(['method'=>'DELETE', 'action'=>['AdminController@deleteCourse'], 'id'=>'form_delete']) !!}
+		        		{!! Form::open(['method'=>'DELETE', 'action'=>['LecturerController@deleteAssessment'], 'id'=>'form_delete']) !!}
 		        			<button type="submit" class="btn btn-sm btn-danger deleteBtn">Delete</button>
 		        		{!! Form::close() !!}
 		        	</div>
 		        	<div class="col-md-6">
 		        		<div class="pull-right">
-		        			{{ $courses->render() }}
+		        			{{ $assessments->render() }}
 		        		</div>
 		        	</div>
 		        </div>
@@ -95,13 +99,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Update Course</h4>
+        <h4 class="modal-title">Update Assessment</h4>
       </div>
       <div class="modal-body">
       	<div class="row">
-      	{!! Form::open(['method'=>'PATCH', 'action'=>'AdminController@updateCourse']) !!}
+      	{!! Form::open(['method'=>'PATCH', 'action'=>'LecturerController@updateAssessment']) !!}
 	        <div class="form-group col-md-12">
-	            <label for="inputPassword1" class="col-md-4 control-label">Course Name</label>
+	            <label for="inputPassword1" class="col-md-4 control-label">Assessment Name</label>
 	            <div class="col-md-8">
 	                    <input type="text" name="name" class="form-control input-line" id="m_name">
 	            </div>
@@ -113,7 +117,7 @@
 	            </div>
 	        </div>
 	        
-	        <input type="hidden" name="id" id="m_course_id">
+	        <input type="hidden" name="id" id="m_assessment_id">
 	  	</div>
       </div>
       <div class="modal-footer">
@@ -133,15 +137,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Course Info</h4>
+        <h4 class="modal-title">Assessment Info</h4>
       </div>
       <div class="modal-body">
       	<div class="row">
-      	{!! Form::open(['method'=>'POST', 'action'=>'AdminController@createCourse']) !!}
+      	{!! Form::open(['method'=>'POST', 'action'=>'LecturerController@createAssessment']) !!}
 	        <div class="form-group col-md-12">
-	            <label for="inputPassword1" class="col-md-4 control-label">Course Name</label>
+	            <label for="inputPassword1" class="col-md-4 control-label">Assessment Name</label>
 	            <div class="col-md-8">
-                        <input type="text" name="course_name" class="form-control input-line" id="" value="">
+                  <input type="text" name="assessment_name" class="form-control input-line" id="" value="">
+                  <input type="hidden" name="subject_id" value="{{ $subject_id }}">
 	            </div>
 	        </div>
 	  	</div>
@@ -179,7 +184,7 @@
        });
 
        $('.editBtn').click(function(){
-       		$("#m_course_id").val($(this).data('id'));
+       		$("#m_assessment_id").val($(this).data('id'));
             $("#m_name").val($(this).data('name'));
             $("#m_created_at").val($(this).data('created_at'));
        });
