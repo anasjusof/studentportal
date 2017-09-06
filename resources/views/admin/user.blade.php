@@ -173,7 +173,7 @@
                         <input type="text" name="name" class="form-control input-line" id="" value="{{ old('name') }}">
                 </div>
             </div>
-        <div class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Email</label>
                 <div class="col-md-8">
                         <input type="text" name="email" class="form-control input-line" id="" value="{{ old('email') }}">

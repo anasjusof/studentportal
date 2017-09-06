@@ -43,6 +43,7 @@
                                     <th> <input id="checkall-checkbox" type="checkbox"> </th>
                               <th> # </th>
                               <th> Subject Name </th>
+                              <th> Semester</th>
                               <th> Created At </th>
                               <th>  </th>
                           </tr>
@@ -55,10 +56,12 @@
                                 <td> <input class="single-checkbox" type="checkbox" name="subject_id[]" form="form_delete" value="{{ $subject->id }}"> </td>
                               <td> {{ $count + $currentPageTotalNumber}} </td>
                               <td> {{ $subject->subject_name }}</td>
+                              <td> {{ $subject->semester }}</td>
                               <td> {{ $subject->created_at }}</td>
                               <td> <a href="" class="btn blue editBtn" data-toggle="modal" data-target="#editModal" 
                                             data-id="{{ $subject->id }}" 
                                             data-name="{{ $subject->subject_name }}" 
+                                            data-semester="{{ $subject->semester }}" 
                                             data-created_at="{{ $subject->created_at }}"
                                             >Edit
                                         </a>
@@ -106,6 +109,12 @@
                       <input type="text" name="name" class="form-control input-line" id="m_name">
               </div>
           </div>
+          <div class="form-group col-md-12">
+              <label for="inputPassword1" class="col-md-4 control-label">Subject Name</label>
+              <div class="col-md-8">
+                      <input type="text" name="semester" class="form-control input-line" id="m_semester">
+              </div>
+          </div>
       <div class="form-group col-md-12">
               <label for="inputPassword1" class="col-md-4 control-label">Created at</label>
               <div class="col-md-8">
@@ -142,6 +151,12 @@
               <label for="inputPassword1" class="col-md-4 control-label">Subject Name</label>
               <div class="col-md-8">
                         <input type="text" name="subject_name" class="form-control input-line" id="" value="">
+              </div>
+          </div>
+          <div class="form-group col-md-12">
+              <label for="inputPassword1" class="col-md-4 control-label">Semester</label>
+              <div class="col-md-8">
+                        <input type="text" name="semester" class="form-control input-line" id="" value="">
               </div>
           </div>
       </div>
@@ -181,6 +196,7 @@
        $('.editBtn').click(function(){
           $("#m_subject_id").val($(this).data('id'));
             $("#m_name").val($(this).data('name'));
+            $("#m_semester").val($(this).data('semester'));
             $("#m_created_at").val($(this).data('created_at'));
        });
 

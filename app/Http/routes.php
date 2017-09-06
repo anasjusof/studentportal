@@ -21,6 +21,9 @@ Route::get('/', function () {
 	    if(Auth::user()->getRolesId() == 2){                // If roles id == 2, redirect to /dekan            
 	      return redirect('lecturer');
 	    }
+	    if(Auth::user()->getRolesId() == 3){                // If roles id == 2, redirect to /dekan            
+	      return redirect('parent');
+	    }
 	}
 	else{
 		return view('home.index');
@@ -81,3 +84,8 @@ Route::delete('lecturer-assessment-delete', ['uses'=>'LecturerController@deleteA
 
 Route::get('lecturer-assessment-mark/{id}', ['uses'=>'LecturerController@showStudentMarks'])->name('lecturer.showStudentMarks');
 Route::post('lecturer-assessment-mark-process', ['uses'=>'LecturerController@processStudentMarks'])->name('lecturer.processStudentMarks');
+
+#Parent/student
+Route::get('parent', ['uses'=>'ParentController@index'])->name('parent.index');
+Route::get('parent-list-subject/{id}', ['uses'=>'ParentController@showSubject'])->name('parent.showSubject');
+Route::get('parent-list-assessment/{id}', ['uses'=>'ParentController@showAssessment'])->name('parent.showAssessment');

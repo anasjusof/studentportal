@@ -172,7 +172,7 @@
                         <input type="text" name="student_name" class="form-control input-line" id="" value="{{ old('student_name') }}">
                 </div>
             </div>
-        <div class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <label for="inputPassword1" class="col-md-4 control-label">Semester</label>
                 <div class="col-md-8">
                         <input type="text" name="student_sem" class="form-control input-line" id="" value="{{ old('student_sem') }}">
@@ -198,6 +198,24 @@
                                 <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                             @endforeach
                         </select>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="inputPassword1" class="col-md-4 control-label">Parent Email</label>
+                <div class="col-md-8">
+                        <input type="text" name="email" class="form-control input-line" id="" value="{{ old('email') }}">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="inputPassword1" class="col-md-4 control-label">Password</label>
+                <div class="col-md-8">
+                        <input type="password" name="password" class="form-control input-line" id="" >
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="inputPassword1" class="col-md-4 control-label">Confirm Password</label>
+                <div class="col-md-8">
+                        <input type="password" name="password_confirmation" class="form-control input-line" id="" >
                 </div>
             </div>
         </div>

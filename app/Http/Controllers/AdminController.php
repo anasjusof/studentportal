@@ -78,6 +78,7 @@ class AdminController extends Controller
         $subject = Subject::find($request->id);
         
         $subject->subject_name = $input['name'];
+        $subject->semester = $input['semester'];
         
         $subject->save();
         
@@ -220,8 +221,25 @@ class AdminController extends Controller
     
     public function createStudent(Request $request){
         $input = $request->all();
-        
-        Student::create($input);
+
+        $inputStudent = array();
+        $inputUser = array();
+
+        $inputStudent['student_name'] = $input['student_name'];
+        $inputStudent['student_sem'] = $input['student_sem'];
+        $inputStudent['student_department'] = $input['student_department'];
+        $inputStudent['student_course'] = $input['student_course'];
+
+
+        $student = Student::create($inputStudent);
+
+        $inputUser['name'] = $input['student_name'];
+        $inputUser['email'] = $input['email'];
+        $inputUser['password'] = bcrypt($input['password']);
+        $inputUser['roles'] = 3;
+        $inputUser['student_id'] = $student->id;
+
+        User::create($inputUser);
 
         return redirect()->back();
     }

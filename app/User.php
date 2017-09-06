@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'department', 'roles'
+        'name', 'email', 'password', 'department', 'roles', 'student_id'
     ];
 
     /**
@@ -28,6 +28,6 @@ class User extends Authenticatable
         return $this->roles;
         #1 for admin
         #2 for lecturer
-        #3 for parent
+        #3 for parent /student
     }
 }
