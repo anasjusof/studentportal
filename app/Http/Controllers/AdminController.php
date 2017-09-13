@@ -135,6 +135,7 @@ class AdminController extends Controller
     #User
     public function showUser(){
         $users = User::select('users.*', 'departments.department_name')
+                        ->whereIn('roles', ['1', '2'])
                         ->leftJoin('departments', 'users.department', '=', 'departments.id')
                         ->orderBy('id', 'DESC')->paginate(5);
         $departments = Department::all();
@@ -248,8 +249,16 @@ class AdminController extends Controller
         $students = Student::findOrFail($request->student_id);
 
         foreach($students as $student){
+            $sid = $student->id;
+            
             $student->delete();
+            
+            $user = User::where('student_id', $sid)->first();
+        
+            $user->delete();
         }
+        
+        
 
         return redirect()->back();
     }
