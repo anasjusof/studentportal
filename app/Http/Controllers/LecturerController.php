@@ -10,6 +10,8 @@ use App\Assessment;
 use App\Student;
 use App\StudentSubject;
 use App\StudentAssessment;
+use App\Subject;
+use App\SubjectMark;
 
 use Auth;
 use DB;
@@ -110,6 +112,62 @@ class LecturerController extends Controller
                 $field['student_id'] = $student_id;
 
                 StudentAssessment::create($field);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    #Student Marks New
+    public function showStudentSubjectMarks($subject_id){
+        $subject = Subject::findOrFail($subject_id);
+
+        $student_assessments = Student::select('students.id as student_id', 'students.student_name', 'subject_marks.quiz', 'subject_marks.midterm', 'subject_marks.assignment', 'subject_marks.mini_project', DB::raw('COALESCE(subject_marks.id,0) as subject_marks_id'))
+                                        ->join('student_subjects', 'student_subjects.student_id', '=', 'students.id', 'LEFT OUTER')
+                                        ->leftJoin('subject_marks', function($join) use($subject_id){
+                                            $join->on('students.id', '=', 'subject_marks.student_id')
+                                            ->where('subject_marks.subject_id', '=', $subject_id);
+                                        })
+                                        ->where('student_subjects.subject_id', $subject_id)->get();
+
+
+        return view('lecturer.lecturer-student-subject-mark', compact('subject', 'student_assessments'));
+    }
+
+    public function processStudentSubjectMarks(Request $request){
+        $input = $request->all();
+        $sm_ids = $input['sm_ids'];
+        $quizs = $input['quiz'];
+        $midterm = $input['midterm'];
+        $assignment = $input['assignment'];
+        $mini_project = $input['mini_project'];
+        $subject_id = $input['subject_id'];
+        $s_id = $input['s_id'];
+        $field = [];
+
+        foreach ($quizs as $key => $quiz){
+            if($sm_ids[$key] != 0){
+                $subject_mark = SubjectMark::find($sm_ids[$key]);
+
+                $subject_mark->quiz = $quiz;
+                $subject_mark->midterm = $midterm[$key];
+                $subject_mark->assignment = $assignment[$key];
+                $subject_mark->mini_project = $mini_project[$key];
+
+                $subject_mark->save();
+            }
+            else{
+                $student_id = $s_id[$key];
+                
+                $field['quiz'] = $quiz;
+                $field['midterm'] = $midterm[$key];
+                $field['assignment'] = $assignment[$key];
+                $field['mini_project'] = $mini_project[$key];
+
+                $field['subject_id'] = $subject_id;
+                $field['student_id'] = $student_id;
+
+                SubjectMark::create($field);
             }
         }
 

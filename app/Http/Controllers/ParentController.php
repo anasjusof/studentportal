@@ -81,4 +81,33 @@ class ParentController extends Controller
 
         return view('parent.assessment_list', compact('subject', 'assessments'));
     }
+
+    #Student Marks New
+    public function showStudentSubjectMarks($subject_id){
+        $subject = Subject::findOrFail($subject_id);
+        $parent_id = Auth::user()->id;
+
+        $student = User::select('student_id')
+                        ->where('users.id', $parent_id)
+                        ->first();
+
+        $student_id = $student->student_id;
+
+        $student_assessments = Student::select('students.id as student_id', 'students.student_name', 'subject_marks.quiz', 'subject_marks.midterm', 'subject_marks.assignment', 'subject_marks.mini_project', DB::raw('COALESCE(subject_marks.id,0) as subject_marks_id'))
+                                        ->join('student_subjects', 'student_subjects.student_id', '=', 'students.id', 'LEFT OUTER')
+                                        ->leftJoin('subject_marks', function($join) use($subject_id, $parent_id){
+                                            $join->on('students.id', '=', 'subject_marks.student_id')
+                                            ->where('subject_marks.subject_id', '=', $subject_id);
+                                        })
+                                        ->where('student_subjects.student_id', $student_id)
+                                        ->where('student_subjects.subject_id', $subject_id)->get();
+                // echo $s
+                // echo $student_assessments = Student::select('students.id as student_id', 'students.student_name', 'subject_marks.quiz', 'subject_marks.midterm', 'subject_marks.assignment', 'subject_marks.mini_project', 'subject_marks.id as subject_marks_id')
+                //                         ->join('subject_marks', 'subject_marks.student_id', '=', 'students.id', 'LEFT OUTER')
+                //                         ->where('subject_marks.student_id', $parent_id)
+                //                         ->where('subject_marks.subject_id', $subject_id)->toSql(); exit();
+
+
+        return view('parent.parent-student-subject-mark', compact('subject', 'student_assessments'));
+    }
 }

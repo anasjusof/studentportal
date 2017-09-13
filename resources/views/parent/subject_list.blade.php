@@ -49,7 +49,7 @@
                                 <td> {{ $count}} </td>
                                 <td> {{ $subject->subject_name }}</td>
                                 <td> 
-                                    <a href="{{ route('parent.showAssessment', $subject->id ) }}" class="btn" style="background-color: #d64635; color:white;"> View Assessment</a>
+                                    <a href="{{ route('parent.showStudentSubjectMarks', $subject->id ) }}" class="btn" style="background-color: #d64635; color:white;"> View Assessment</a>
                                 </td>
                             </tr>
                             <?php $count++ ?>

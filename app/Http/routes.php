@@ -85,7 +85,11 @@ Route::delete('lecturer-assessment-delete', ['uses'=>'LecturerController@deleteA
 Route::get('lecturer-assessment-mark/{id}', ['uses'=>'LecturerController@showStudentMarks'])->name('lecturer.showStudentMarks');
 Route::post('lecturer-assessment-mark-process', ['uses'=>'LecturerController@processStudentMarks'])->name('lecturer.processStudentMarks');
 
+Route::get('lecturer-subject-mark/{id}', ['uses'=>'LecturerController@showStudentSubjectMarks'])->name('lecturer.showStudentSubjectMarks');
+Route::post('lecturer-subject-mark-process', ['uses'=>'LecturerController@processStudentSubjectMarks'])->name('lecturer.processStudentSubjectMarks');
+
 #Parent/student
 Route::get('parent', ['uses'=>'ParentController@index'])->name('parent.index');
 Route::get('parent-list-subject/{id}', ['uses'=>'ParentController@showSubject'])->name('parent.showSubject');
 Route::get('parent-list-assessment/{id}', ['uses'=>'ParentController@showAssessment'])->name('parent.showAssessment');
+Route::get('parent-subject-mark/{id}', ['uses'=>'ParentController@showStudentSubjectMarks'])->name('parent.showStudentSubjectMarks');
